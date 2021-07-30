@@ -27,21 +27,23 @@ const fruits = ['apple', 'kiwi', 'orange'];
 
 /////////////////////////// ROUTES ///////////////////////
 
+// Homepage Route
 // Listen for requests on the '/' route, and when they are recieved
 // call this callback function
 app.get('/', (request, response) => {
   response.send('Welcome to the Fruits App');
 })
 
-app.get('/about', (request, response) => {
-  response.send('All about my website');
-})
 
-
+// Show Fruit Route
 app.get('/fruits/:fruitIndex', (request, response) => {
   response.send(fruits[request.params.fruitIndex]);
 });
 
+
+// app.get('/about', (request, response) => {
+//   response.send('All about my website');
+// })
 
 // app.get('/fruits/:fruitIndex/:clientName', (request, response) => {
 //   console.log(fruits[request.params.fruitIndex]);
