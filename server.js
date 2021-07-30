@@ -1,51 +1,34 @@
+/* Keywords */
 // Node - An environment that allows us to run our JavaScript outside of a browser and gives us some helpful server capabilities.
-
 // Express - A tool / package to help us build our server application.
-
 // NPM - Node Package Manager
-
 // package.json - A file that keeps a running list of all of our packages
-
 // node_modules - A directory that holds all of our packages
-
 // nodemon - Node Monitor - Listens for when we save our file and restarts the node process (restarts our server)
 
-////////////////////// CONFIGURATION /////////////////////
+/* Required Modules*/
+const express = require('express'); // Pulling in the express package into this file
 
-// Pulling in the express package into this file
-const express = require('express');
+// Database & Models
+const fruits = require('./models/fruitModel.js') // The "database"
 
-// Creating an instance of an express app
-const app = express();
-
+/* Variables */
+const app = express(); // Creating an instance of an express app
 const port = 4000;
 
-const fruits = require('./models/fruitModel.js')
+/* Middleware */
+app.set('view engine', 'ejs');
 
-// Temperary, simulated database
-//              0        1       2
-// const fruits = ['apple', 'kiwi', 'orange'];
-
-
-
-
-/////////////////////////// ROUTES ///////////////////////
-
+/* Routes */
 // Homepage Route
-// Listen for requests on the '/' route, and when they are recieved
-// call this callback function
 app.get('/', (request, response) => {
+  // Listen for requests on the '/' route, and when they are received
+  // call this callback function
   response.send('Welcome to the Fruits App');
 })
 
-
-// Show Fruit Route
-// app.get('/fruits/:fruitIndex', (request, response) => {
-//   response.send(fruits[request.params.fruitIndex]);
-// });
-
 // Index Fruit Route
-app.get('/fruits/', (req, res) => {
+app.get('/fruits', (req, res) => {
   res.send(fruits)
 })
 
@@ -56,6 +39,7 @@ app.get('/fruits/:fruitIndex', (req, res) => {
 })
 
 
+/* Old routes used for in-class examples  */
 // app.get('/about', (request, response) => {
 //   response.send('All about my website');
 // })
@@ -71,22 +55,11 @@ app.get('/fruits/:fruitIndex', (req, res) => {
 //   response.send(message);
 // });
 
-// app.get('/fruits/0', (request, response) => {
-//   response.send(fruits[0]);
-// })
 
-// app.get('/fruits/1', (request, response) => {
-//   response.send(fruits[1]);
-// })
-
-// app.get('/fruits/2', (request, response) => {
-//   response.send(fruits[2]);
-// })
-
-///////////////////// STARTING THE SERVER /////////////////
-// Start up our server
-// Start the server on the specified port
-// After it starts, call the callback function
+/* Start the Server */
 app.listen(port, () => {
+  // Start up our server
+  // Start the server on the specified port
+  // After it starts, call the callback function
   console.log(`Your server is running on port: ${port} 🚀`);
 });
