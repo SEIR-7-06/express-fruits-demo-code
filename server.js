@@ -20,9 +20,13 @@ const app = express();
 
 const port = 4000;
 
+const fruits = require('./models/fruitModel.js')
+
 // Temperary, simulated database
 //              0        1       2
-const fruits = ['apple', 'kiwi', 'orange'];
+// const fruits = ['apple', 'kiwi', 'orange'];
+
+
 
 
 /////////////////////////// ROUTES ///////////////////////
@@ -36,9 +40,20 @@ app.get('/', (request, response) => {
 
 
 // Show Fruit Route
-app.get('/fruits/:fruitIndex', (request, response) => {
-  response.send(fruits[request.params.fruitIndex]);
-});
+// app.get('/fruits/:fruitIndex', (request, response) => {
+//   response.send(fruits[request.params.fruitIndex]);
+// });
+
+// Index Fruit Route
+app.get('/fruits/', (req, res) => {
+  res.send(fruits)
+})
+
+app.get('/fruits/:fruitIndex', (req, res) => {
+  res.render('show.ejs', {
+    oneFruit: fruits[req.params.fruitIndex]
+  })
+})
 
 
 // app.get('/about', (request, response) => {
