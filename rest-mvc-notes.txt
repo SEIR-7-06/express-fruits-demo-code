@@ -1,0 +1,23 @@
+REST (Representational State Transfer)
+- A convention that programmers use to organize where 
+their data can be found and how it can be interacted with.
+
+- There are 7 RESTful routes
+
+
+MVC (Model, View, Controller)
+- An architectural paradigm, where we separate functionalities
+of our app into different sections.  
+- Having a place for each "concern"
+- aka "Separation of Concerns"
+
+- Model: Our data - describe the shape of our data
+- View: How The User sees that data (aka how its represented)
+- Controller: Organizes where the user goes to access our data
+
+### Views:
+    - .ejs files
+        - it LOOKS like HTML, but it's JS
+        - a "template"
+        - will be used to "render" a real .html file
+        that we send to the user.

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fruit Index</title>
+</head>
+<body>
+    <h1>Here's all the fruits:</h1>
+    <% for(let i = 0; i < allFruits.length; i++) { %>
+        <h2><%= allFruits[i].name %></h2>
+        <!-- 💪 Take 5 min: Display the fruit color -->
+        <p><%= allFruits[i].color %></p>
+        <!-- And also display in a helpful msg -->
+        <!-- "This fruit is rdy to eat .. or not rdy to eat" -->
+        <% if(allFruits[i].readyToEat) { %>
+            <p>This fruit is ready to eat!</p>
+        <% } else { %>
+            <p>This fruit is not ready to eat!</p>
+        <% } %>
+    <% } %>
+</body>
+</html>

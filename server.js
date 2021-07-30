@@ -8,6 +8,7 @@
 
 /* Required Modules*/
 const express = require('express'); // Pulling in the express package into this file
+const rowdy = require('rowdy-logger')
 
 // Database & Models
 const fruits = require('./models/fruitModel.js') // The "database"
@@ -15,6 +16,7 @@ const fruits = require('./models/fruitModel.js') // The "database"
 /* Variables */
 const app = express(); // Creating an instance of an express app
 const port = 4000;
+const rowdyResults = rowdy.begin(app)
 
 /* Middleware */
 app.set('view engine', 'ejs');
@@ -27,11 +29,15 @@ app.get('/', (request, response) => {
   response.send('Welcome to the Fruits App');
 })
 
-// Index Fruit Route
+// Index Route - Retrieve many/all fruits
 app.get('/fruits', (req, res) => {
-  res.send(fruits)
+  console.log(fruits)
+  res.render('index.ejs', {
+    allFruits: fruits
+  })
 })
 
+// Show Route - Retrieve one fruit
 app.get('/fruits/:fruitIndex', (req, res) => {
   res.render('show.ejs', {
     oneFruit: fruits[req.params.fruitIndex]
@@ -58,8 +64,8 @@ app.get('/fruits/:fruitIndex', (req, res) => {
 
 /* Start the Server */
 app.listen(port, () => {
-  // Start up our server
   // Start the server on the specified port
   // After it starts, call the callback function
   console.log(`Your server is running on port: ${port} 🚀`);
+  rowdyResults.print()
 });
