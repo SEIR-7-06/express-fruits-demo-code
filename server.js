@@ -20,6 +20,8 @@ const rowdyResults = rowdy.begin(app)
 
 /* Middleware */
 app.set('view engine', 'ejs');
+// Adds form data, if present to req.body
+app.use(express.urlencoded({ extended: false })) 
 
 /* Routes */
 // Homepage Route
@@ -37,6 +39,11 @@ app.get('/fruits', (req, res) => {
   })
 })
 
+// New Route - Retrieve a form that can be used to create a new fruit
+app.get('/fruits/new', (req, res) => {
+  res.render('new.ejs')
+})
+
 // Show Route - Retrieve one fruit
 app.get('/fruits/:fruitIndex', (req, res) => {
   res.render('show.ejs', {
@@ -44,6 +51,14 @@ app.get('/fruits/:fruitIndex', (req, res) => {
   })
 })
 
+// Create Route - Send data to create a new fruit
+app.post('/fruits', (req, res) => {
+  // We need to harvest the data from the form
+  // console.log(req.body)
+  // Add that new fruit data into our database
+  fruits.push(req.body)
+  res.redirect('/fruits') // redirects to the index route
+})
 
 /* Old routes used for in-class examples  */
 // app.get('/about', (request, response) => {
