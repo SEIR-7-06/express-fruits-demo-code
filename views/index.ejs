@@ -27,6 +27,10 @@
         <form action="/fruits/<%= i %>?_method=DELETE" method="POST">
             <input type="submit" value="Delete this Fruit">
         </form>
+
+        <!-- We want another button to take us to the edit page -->
+        <!-- for that fruit -->
+        <a href="/fruits/<%= i %>/edit">Edit this Fruit</a>
     <% } %>
 </body>
 </html>
