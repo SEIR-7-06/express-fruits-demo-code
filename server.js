@@ -12,7 +12,7 @@ const rowdy = require('rowdy-logger')
 
 // Database & Models
 const fruits = require('./models/fruitModel.js') // The "database"
-
+const fruitsController = require('./controllers/fruitsController.js');
 /* Variables */
 const app = express(); // Creating an instance of an express app
 const port = 4000;
@@ -24,6 +24,7 @@ app.set('view engine', 'ejs');
 // Checks if form data was sent in the request.
 // If so adds it to the request body (req.body)
 app.use(express.urlencoded({ extended: false })) 
+app.use('/fruits', fruitsController);
 
 /* Routes */
 // Homepage Route
@@ -31,32 +32,6 @@ app.get('/', (req, res) => {
   // Listen for requests on the '/' route, and when they are received
   // call this callback function
   res.send('Welcome to the Fruits App');
-})
-
-// Index Route - Retrieve many/all fruits
-app.get('/fruits', (req, res) => {
-  res.render('index.ejs', { allFruits: fruits });
-})
-
-// New Route - Retrieve a form that can be used to create a new fruit
-app.get('/fruits/new', (req, res) => {
-  res.render('new.ejs')
-})
-
-// Show Route - Retrieve one fruit
-app.get('/fruits/:fruitIndex', (req, res) => {
-  res.render('show.ejs', {
-    oneFruit: fruits[req.params.fruitIndex]
-  })
-})
-
-// Create Route - Send data to create a new fruit
-app.post('/fruits', (req, res) => {
-  // We need to harvest the data from the form
-  // console.log(req.body)
-  // Add that new fruit data into our database
-  fruits.push(req.body)
-  res.redirect('/fruits') // redirects to the index route
 })
 
 /* Old routes used for in-class examples  */
