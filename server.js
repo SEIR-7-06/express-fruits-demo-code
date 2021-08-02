@@ -26,6 +26,10 @@ app.set('view engine', 'ejs');
 app.use(express.urlencoded({ extended: false })) 
 app.use('/fruits', fruitsController);
 
+app.get('/potato', (req, res) => {
+  res.send('this is not a fruit!');
+})
+
 /* Routes */
 // Homepage Route
 app.get('/', (req, res) => {

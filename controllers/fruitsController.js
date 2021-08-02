@@ -29,5 +29,12 @@ router.post('/', (req, res) => {
   res.redirect('/fruits') // redirects to the index route
 })
 
+// Steps to delete a fruit
+// 1. Crete a route to handle deleting the fruit
+// 2. Create a Form to handle the delete request
+router.delete('/:fruitIndex', (req, res) => {
+  // Logic for deleting fruit
+  res.send('You deleted the fruit with the index' + req.params.fruitIndex);
+})
 
 module.exports = router;
