@@ -6,7 +6,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
 </head>
+
+
 <body>
+  <header>
+    <nav>
+        <ul>
+            <li><a href="/fruits">All Fruits</a></li>
+            <li><a href="/fruits/new">Create a Fruit</a></li>
+        </ul>
+    </nav>
+  </header>
+
   <h1>Fruits show page</h1>
   <p>The <%= oneFruit.name %> is <%= oneFruit.color %>.</p>
   <% if(oneFruit.readyToEat === true){ %>
