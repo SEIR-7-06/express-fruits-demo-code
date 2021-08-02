@@ -20,7 +20,9 @@
     
     <h1>Here's all the fruits:</h1>
     <% for(let i = 0; i < allFruits.length; i++) { %>
-        <h2><%= allFruits[i].name %></h2>
+        <a href="/fruits/<%= i %>">
+            <h2><%= allFruits[i].name %></h2>
+        </a>
     <% } %>
 </body>
 </html>

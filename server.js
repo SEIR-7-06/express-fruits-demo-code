@@ -35,9 +35,7 @@ app.get('/', (req, res) => {
 
 // Index Route - Retrieve many/all fruits
 app.get('/fruits', (req, res) => {
-  res.render('index.ejs', {
-    allFruits: fruits
-  })
+  res.render('index.ejs', { allFruits: fruits });
 })
 
 // New Route - Retrieve a form that can be used to create a new fruit
