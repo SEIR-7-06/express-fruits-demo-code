@@ -24,7 +24,7 @@
             <h2><%= allFruits[i].name %></h2>
         </a>
 
-        <form action="/fruits/<%= i %>" method="DELETE">
+        <form action="/fruits/<%= i %>?_method=DELETE" method="POST">
             <input type="submit" value="Delete this Fruit">
         </form>
     <% } %>

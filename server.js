@@ -9,6 +9,7 @@
 /* Required Modules*/
 const express = require('express'); // Pulling in the express package into this file
 const rowdy = require('rowdy-logger')
+const methodOverride = require('method-override');
 
 // Database & Models
 const fruits = require('./models/fruitModel.js') // The "database"
@@ -23,6 +24,7 @@ app.set('view engine', 'ejs');
 
 // Checks if form data was sent in the request.
 // If so adds it to the request body (req.body)
+app.use(methodOverride('_method'));
 app.use(express.urlencoded({ extended: false })) 
 app.use('/fruits', fruitsController);
 
