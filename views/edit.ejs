@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit a Fruit</title>
+</head>
+
+
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="/fruits">All Fruits</a></li>
+                <li><a href="/fruits/new">Create a Fruit</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <h1>Edit the <%= oneFruit.name %></h1>
+    <form action="/fruits" method="POST">
+        <label for="name">Name:</label>
+        <input name="name" type="text" value="<%= oneFruit.name %>">
+        <br>
+        <label for="color">Color:</label>
+        <input name="color" type="text" value="<%= oneFruit.color %>">
+        <br>
+        <label for="readyToEat">Ready To Eat?</label>
+        <input name="readyToEat" type="checkbox" <%= oneFruit.readyToEat ? "checked" : "" %>>
+        <br>
+        <input type="submit" value="Update Fruit">
+    </form>
+</body>
+</html>

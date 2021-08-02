@@ -34,7 +34,29 @@ router.post('/', (req, res) => {
 // 2. Create a Form to handle the delete request
 router.delete('/:fruitIndex', (req, res) => {
   // Logic for deleting fruit
-  res.send('You deleted the fruit with the index' + req.params.fruitIndex);
+  const fruitIndex = req.params.fruitIndex;
+
+  fruits.splice(fruitIndex, 1);
+
+  res.redirect('/fruits');
 })
 
+
+// Fruit Edit Route - Serves a form to submit info for updating the fruit
+router.get('/:fruitIndex/edit', (req, res) => {
+  res.render('edit.ejs', {
+    oneFruit: fruits[req.params.fruitIndex]
+  });
+});
+
+// Create a route to handle a PUT to /fruits/:fruitIndex
+
+
 module.exports = router;
+
+/*
+C - Create
+R - Read
+U - Update
+D - Delete
+*/
