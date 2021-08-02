@@ -20,20 +20,21 @@ const rowdyResults = rowdy.begin(app)
 
 /* Middleware */
 app.set('view engine', 'ejs');
-// Adds form data, if present to req.body
+
+// Checks if form data was sent in the request.
+// If so adds it to the request body (req.body)
 app.use(express.urlencoded({ extended: false })) 
 
 /* Routes */
 // Homepage Route
-app.get('/', (request, response) => {
+app.get('/', (req, res) => {
   // Listen for requests on the '/' route, and when they are received
   // call this callback function
-  response.send('Welcome to the Fruits App');
+  res.send('Welcome to the Fruits App');
 })
 
 // Index Route - Retrieve many/all fruits
 app.get('/fruits', (req, res) => {
-  console.log(fruits)
   res.render('index.ejs', {
     allFruits: fruits
   })
