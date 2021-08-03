@@ -1,0 +1,177 @@
+⛓️ MongoDB Lesson
+
+MongoDB is a NoSQL Database tech
+MongoDB (short for huMONGOgous)
+"Non-SQL", "Not only SQL"
+
+A MongoDB database consists of Collections of Documents
+Each document is comprised of key-value pairs, just like JSON data
+
+MongoDB is Schema-less, meaning there's no restrictions on the shape of
+the data in your documents
+
+CREATE - insert()
+READ - find()
+UPDATE - update()
+DELETE - remove()
+
+# Good to know commands:
+mongo - to enter the mongo shell
+exit - to leave the mongo shell
+
+show dbs - displays all of your databases
+show collections - shows you the collections within
+the current database
+
+use <dbName> - switch to another database
+db.createCollection('guests') - create a collection named guests
+
+##########
+# Create - insert()
+db.guests.insert({
+    name: 'Emma',
+    age: 20,
+    hasCoat: true
+})
+db.guests.insert({
+    name: 'Emma',
+    age: 30,
+    hasCoat: false,
+    tab: 600
+})
+
+# insert Many
+db.guests.insert([
+    {
+        name: 'Ray',
+        age: 40,
+        tab: 100
+    },
+    {
+        name: 'Stacy',
+        age: 50,
+        tab: 200
+    }
+])
+
+When you create a "document" in MongoDB, mongo will 
+automatically add for you a '_id' property, 
+whose value is a random and unique ObjectId
+
+##########
+# READ - find()
+db.guests.find()
+
+# Find JUST the Emmas
+db.guests.find({ name: 'Emma' }).pretty()
+
+# Find Ray, whose age is 40
+db.guests.find({
+    name: 'Ray',
+    age: 40
+})
+
+
+# Query Selectors
+https://docs.mongodb.com/manual/reference/operator/query/
+# Find every guest who's age is under 21
+db.guests.find({ age: { $lt: 21 } })
+
+##########
+# UPDATE - update()
+# Update Emma (20)
+db.guests.update(
+    { name: 'Emma' },
+    {
+        $set: {
+            name: 'Emily',
+            age: 37
+        }
+    },
+	{
+		multi: true
+	}
+)
+
+# Lets give Emily a coat and a tab
+db.guests.update(
+    { name: 'Emily' },
+    {
+        $set: {
+            hasCoat: true,
+            tab: 1000
+        }
+    }
+)
+
+#########
+# Delete - delete()
+# Delete Ray from the collection
+db.guests.remove({
+    name: 'Ray'
+})
+
+# Delete all the emilys
+db.guests.remove(
+    { name: 'Emily' }, 
+    { multi: true }
+)
+
+db.guests.insert(
+[
+    {
+        name: "Emma",
+        age: 18,
+        tab: 100
+    },
+    {
+        name: "Ray",
+        age: 45,
+        hasCoat: true,
+        tab: 600
+    },
+    {
+        name: "Emma",
+        age: 33,
+        hasCoat: true
+    },
+    {
+        name: "Stacy",
+        age: 53
+    },
+    {
+        name: "Katie",
+        age: 24
+    },
+    {
+        name: "Adrian",
+        age: 47
+    }
+])
+
+Exercise!
+1. Find "Stacy"
+db.guests.find({ name: 'Stacy' }).pretty()
+2. Stacy has accrued a tab of 120 - update her document!
+db.guests.update(
+    { name: 'Stacy' },
+    {
+        $set: {
+            tab: 120
+        }
+    }
+)
+3. Find all guests 21 or over
+db.guests.find({
+    age: { $gt: 21 }
+}).pretty()
+
+4. Find all guests with a tab  greater or equal to 100
+db.guests.find({
+    tab: { $gte: 100}
+}).pretty()
+
+5. Delete "Adrian"
+db.guests.remove({
+    name: 'Adrian'
+})
