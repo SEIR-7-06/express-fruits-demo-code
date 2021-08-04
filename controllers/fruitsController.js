@@ -1,7 +1,12 @@
 const express = require('express');
 const router = express.Router();
+
+// DELETE LATER
 const fruits = require('../models/fruitModel.js');
 
+const db = require('../models/index.js')
+
+// Base Path - /fruits
 
 router.get('/test/:firstName', (req, res) => {
   console.log(req.params);
@@ -32,16 +37,18 @@ router.post('/', (req, res) => {
   // We need to harvest the data from the form
   console.log(req.body)
 
-  // Convert the data to the correct format
+  // 1. Convert the data to the correct format
   if (req.body.readyToEat === 'on') {
     req.body.readyToEat = true;
   } else {
     req.body.readyToEat = false;
   }
 
-  // Add that new fruit data into our database
-  fruits.push(req.body)
-  res.redirect('/fruits') // redirects to the index route
+  // 2. Add that new fruit data into our database
+  db.Fruit.create(req.body, (err, createdFruit) => {
+    // 3. Redirect back to fruits index.
+    res.redirect('/fruits')
+  });
 })
 
 // Delete Fruit Route - Delete a fruit from the database
