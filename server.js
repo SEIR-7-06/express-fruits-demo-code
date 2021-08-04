@@ -12,7 +12,6 @@ const rowdy = require('rowdy-logger')
 const methodOverride = require('method-override');
 
 // Database & Models
-const fruits = require('./models/fruitModel.js') // The "database"
 const fruitsController = require('./controllers/fruitsController.js');
 /* Variables */
 const app = express(); // Creating an instance of an express app
