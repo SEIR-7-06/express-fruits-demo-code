@@ -20,17 +20,17 @@
     
     <h1>Here's all the fruits:</h1>
     <% for(let i = 0; i < allFruits.length; i++) { %>
-        <a href="/fruits/<%= i %>">
+        <a href="/fruits/<%= allFruits[i]._id  %>">
             <h2><%= allFruits[i].name %></h2>
         </a>
 
-        <form action="/fruits/<%= i %>?_method=DELETE" method="POST">
+        <form action="/fruits/<%= allFruits[i]._id %>?_method=DELETE" method="POST">
             <input type="submit" value="Delete this Fruit">
         </form>
 
         <!-- We want another button to take us to the edit page -->
         <!-- for that fruit -->
-        <a href="/fruits/<%= i %>/edit">Edit this Fruit</a>
+        <a href="/fruits/<%= allFruits[i]._id  %>/edit">Edit this Fruit</a>
     <% } %>
 </body>
 </html>

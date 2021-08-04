@@ -19,7 +19,7 @@
     </header>
 
     <h1>Edit the <%= oneFruit.name %></h1>
-    <form action="/fruits/<%= index %>?_method=PUT" method="POST">
+    <form action="/fruits/<%= oneFruit._id %>?_method=PUT" method="POST">
         <label for="name">Name:</label>
         <input name="name" type="text" value="<%= oneFruit.name %>">
         <br>

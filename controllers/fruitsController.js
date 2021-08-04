@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 // DELETE LATER
-const fruits = require('../models/fruitModel.js');
+// const fruits = require('../models/fruitModel.js');
 
 const db = require('../models/index.js')
 
@@ -17,7 +17,14 @@ router.get('/test/:firstName', (req, res) => {
 
 // Index Route - Retrieve many/all fruits
 router.get('/', (req, res) => {
-  res.render('index.ejs', { allFruits: fruits });
+
+  // const fruits = require('../models/fruitModel')
+
+
+  db.Fruit.find({}, (err, allFruits) => {
+    res.render('index.ejs', { allFruits: allFruits })
+  })
+  // res.render('index.ejs', { allFruits: fruits });
 })
 
 // New Route - Retrieve a form that can be used to create a new fruit
@@ -26,10 +33,13 @@ router.get('/new', (req, res) => {
 })
 
 // Show Route - Retrieve one fruit
-router.get('/:fruitIndex', (req, res) => {
-  res.render('show.ejs', {
-    oneFruit: fruits[req.params.fruitIndex]
+router.get('/:fruitId', (req, res) => {
+  db.Fruit.findById(req.params.fruitId, (err, foundFruit) => {
+    if(err) return console.log(err);
+    res.render('show.ejs', { oneFruit: foundFruit })
+    
   })
+  
 })
 
 // Create Route - Send data to create a new fruit
@@ -52,28 +62,28 @@ router.post('/', (req, res) => {
 })
 
 // Delete Fruit Route - Delete a fruit from the database
-router.delete('/:fruitIndex', (req, res) => {
+router.delete('/:fruitId', (req, res) => {
   // Logic for deleting fruit
-  const fruitIndex = req.params.fruitIndex;
-
-  fruits.splice(fruitIndex, 1);
-
-  res.redirect('/fruits');
+  const fruitId = req.params.fruitId;
+  db.Fruit.findByIdAndDelete(fruitId, (err) => {
+    if(err) return console.log(err)
+    res.redirect('/fruits');
+  })
 })
 
 
 // Fruit Edit Route - Serves a form to submit info for updating the fruit
-router.get('/:fruitIndex/edit', (req, res) => {
-  res.render('edit.ejs', {
-    oneFruit: fruits[req.params.fruitIndex],
-    index: req.params.fruitIndex
-  });
+router.get('/:fruitId/edit', (req, res) => {
+  db.Fruit.findById(req.params.fruitId, (err, foundFruit) => {
+    if(err) return console.log(err)
+    res.render('edit.ejs', { oneFruit: foundFruit });
+  })
 });
 
 // Create a route to handle a PUT to /fruits/:fruitIndex
 
 // Fruit Update Route - Update the data for a particular fruit
-router.put('/:fruitIndex', (req, res) => {
+router.put('/:fruitId', (req, res) => {
   console.log(req.body);
 
   // 1. Convert the data to the correct format
@@ -85,11 +95,15 @@ router.put('/:fruitIndex', (req, res) => {
 
   console.log(req.body);
 
-  // 2. Update the data in database
-  fruits[req.params.fruitIndex] = req.body;
+  // Step 1: Search for a Fruit by its ID in the DB
+  // Step 1b: Give the function the new data to replace the old
+  // Step 2: Check for errors
+  // Step 3: redirect back to the show page
+  db.Fruit.findByIdAndUpdate(req.params.fruitId, req.body, (err, updatedFruit) => {
+    if(err) return console.log(err)
 
-  // 3. Redirect to the show page for that particular fruit
-  res.redirect('/fruits/' + req.params.fruitIndex);
+    res.redirect(`/fruits/${req.params.fruitId}`)
+  })
 })
 
 module.exports = router;
