@@ -1,0 +1,7 @@
+/* Keywords */
+// Node - An environment that allows us to run our JavaScript outside of a browser and gives us some helpful server capabilities.
+// Express - A tool / package to help us build our server application.
+// NPM - Node Package Manager
+// package.json - A file that keeps a running list of all of our packages
+// node_modules - A directory that holds all of our packages
+// nodemon - Node Monitor - Listens for when we save our file and restarts the node process (restarts our server)

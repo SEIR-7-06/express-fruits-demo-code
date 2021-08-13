@@ -9,14 +9,7 @@
 
 
 <body>
-    <header>
-        <nav>
-            <ul>
-                <li><a href="/fruits">All Fruits</a></li>
-                <li><a href="/fruits/new">Create a Fruit</a></li>
-            </ul>
-        </nav>
-    </header>
+    <%- include('./partials/header.ejs') %>
     
     <h1>Create a new Fruit</h1>
     <form action="/fruits" method="POST">
