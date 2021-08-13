@@ -84,7 +84,8 @@ app.post('/login', (req, res) => {
       return res.redirect('/login');
     }
 
-    // 2. ✅ Check if the password passed in matches the one on file
+    // 2. ✅ Check if the password passed in matches the one on file,
+    // if not send them to the /login page
     if (req.body.password !== foundUser.password) {
       return res.redirect('/login');
     }
@@ -96,7 +97,8 @@ app.post('/login', (req, res) => {
 
     console.log(req.session);
 
-    res.send('You tried to log in!');
+    // After successfully logging in go the fruits index page
+    res.redirect('/fruits');
   })
 
 
@@ -105,7 +107,9 @@ app.post('/login', (req, res) => {
 
 
 app.get('/logout', (req, res) => {
-  res.send('You logged out!');
+  req.session.destroy();
+
+  res.redirect('/');
 })
 
 
