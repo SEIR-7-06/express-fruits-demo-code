@@ -3,7 +3,7 @@ const express = require('express'); // Pulling in the express package into this 
 const rowdy = require('rowdy-logger');
 const methodOverride = require('method-override');
 const fruitsController = require('./controllers/fruitsController.js');
-
+const db = require('./models/index.js');
 
 // Configuration ///////////////////////////////////////////////////////
 const app = express(); // Creating an instance of an express app
@@ -35,11 +35,42 @@ app.get('/signup', (req, res) => {
   res.render('auth/signup.ejs');
 });
 
+// Listening for when the signup form is submitted
+// Sign Up a New User
+app.post('/signup', (req, res) => {
+  // 1. ✅ take in the username and password from the form
+  console.log(req.body);
+  // 2. ✅ Make a query to create a new User
+  db.User.create(req.body, (err, createdUser) => {
+    if (err) console.log(err);
+
+    console.log(createdUser);
+    // 3. ✅ Redirect to /login
+    res.redirect('/login');
+  });
+})
+
 
 // Login Route - Shows a Login Form
 app.get('/login', (req, res) => {
   res.render('auth/login.ejs');
 });
+
+
+
+// Listen for when the login form is submitted
+// Log the user in - track the user in a cookie on their browser
+app.post('/login', (req, res) => {
+  console.log(req.body);
+
+  // 1. ✅ Check if the user passed in exists
+
+  // 2. ✅ Check if the password passed in matches the one on file
+
+  // 3. ✅ Track the user in a cookie on their browser
+
+  res.send('You tried to log in!')
+})
 
 
 app.get('/logout', (req, res) => {

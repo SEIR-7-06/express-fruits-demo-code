@@ -4,7 +4,7 @@
 const mongoose = require('mongoose');
 
 // Get the address to the Mongo database
-const connectionString = 'mongodb://localhost:27017/fruitdb';
+const connectionString = 'mongodb://localhost:27017/fruitdb2';
 
 // Fire off the connection to the Mongo database
 // And deactives those mongoose deprication warnings
@@ -23,5 +23,6 @@ mongoose.connection.on('connected', () => {
 
 // Make the Fruit model available from this file
 module.exports = {
-  Fruit: require('./Fruit.js')
+  Fruit: require('./Fruit.js'),
+  User: require('./User.js')
 }

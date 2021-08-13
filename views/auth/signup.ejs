@@ -10,5 +10,19 @@
   <%- include('../partials/header.ejs') %>
 
   <h1>Sign Up for an Account</h1>
+
+  <!-- 1. Create a form to take in a username and a password -->
+  <form action="/signup" method="POST">
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="username">
+    <br>
+    <br>
+    <label for="password">Password:</label>
+    <input type="text" id="password" name="password">
+    <br>
+    <br>
+    <input type="submit">
+  </form>
+  <!-- 2. When submitting the form, have it make a POST to /signup -->
 </body>
 </html>
