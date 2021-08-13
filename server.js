@@ -1,7 +1,9 @@
 // Require Statements /////////////////////////////////////////////////
+require('dotenv').config();
 const express = require('express'); // Pulling in the express package into this file
 const rowdy = require('rowdy-logger');
 const methodOverride = require('method-override');
+const session = require('express-session');
 const fruitsController = require('./controllers/fruitsController.js');
 const db = require('./models/index.js');
 
@@ -13,11 +15,16 @@ app.set('view engine', 'ejs');
 
 
 // Middleware //////////////////////////////////////////////////////////
+// Some functionality that will sit inbetween the request from the browser and
+// the rest of our routes
+
 // Allows us to convert POST requests to PUT and DELETE requests
 app.use(methodOverride('_method'));
+
 // Checks if form data was sent in the request and adds to req.body
 app.use(express.urlencoded({ extended: false }));
 
+app.use(session({ secret: process.env.SESSION_SECRET }));
 
 // Controllers /////////////////////////////////////////////////////////
 app.use('/fruits', fruitsController);
@@ -26,6 +33,11 @@ app.use('/fruits', fruitsController);
 // Routes //////////////////////////////////////////////////////////////
 // Homepage Route
 app.get('/', (req, res) => {
+
+  req.session.newProperty = 'some value';
+
+  console.log(req.session);
+
   res.render('home.ejs');
 });
 
@@ -64,12 +76,31 @@ app.post('/login', (req, res) => {
   console.log(req.body);
 
   // 1. ✅ Check if the user passed in exists
+  db.User.findOne({ username: req.body.username }, (err, foundUser) => {
+    if (err) return console.log(err);
 
-  // 2. ✅ Check if the password passed in matches the one on file
+    // If the username is not correct, send them to the /login page
+    if (!foundUser) {
+      return res.redirect('/login');
+    }
 
-  // 3. ✅ Track the user in a cookie on their browser
+    // 2. ✅ Check if the password passed in matches the one on file
+    if (req.body.password !== foundUser.password) {
+      return res.redirect('/login');
+    }
 
-  res.send('You tried to log in!')
+    // 3. ✅ Track the user in a cookie on their browser
+    //- Adding a new property into our session object
+    //- The session object will be accessible from any of my routes
+    req.session.currentUser = foundUser;
+
+    console.log(req.session);
+
+    res.send('You tried to log in!');
+  })
+
+
+
 })
 
 
